@@ -6,7 +6,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import styles from "../styles/Home.module.css";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Divider, Grid, Stack } from "@mui/material";
 import {
   uploadFileToFirestore,
   writeSelectedData,
@@ -68,18 +68,14 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Konecta Test!</h1>
-        <div>
-          <input
-            type="file"
-            accept=".xlsx"
-            onChange={(event: any) => {
-              uploadFileToFirestore(event.target.files[0]);
-            }}
-          />
-          <button>Upload to Firebase</button>
-        </div>
-
-        <div style={{ height: 400, width: "60%", background: "#FFF" }}>
+        <div
+          style={{
+            height: 400,
+            width: "60%",
+            background: "#FFF",
+            marginTop: 50,
+          }}
+        >
           <Button
             sx={{ mb: 2 }}
             disabled={rowsSelected.length <= 0}
@@ -97,6 +93,17 @@ const Home: NextPage = () => {
             checkboxSelection
             onSelectionModelChange={(newSelectionModel: any) => {
               onSelectedRow(newSelectionModel);
+            }}
+          />
+        </div>
+
+        <div style={{ marginTop: 100 }}>
+          <h3>Componente para subir archivo a storage</h3>
+          <input
+            type="file"
+            accept=".xlsx"
+            onChange={(event: any) => {
+              uploadFileToFirestore(event.target.files[0]);
             }}
           />
         </div>

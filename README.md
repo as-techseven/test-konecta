@@ -1,34 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Konecta test
 
-First, run the development server:
+Aca dejo las instrucciones para poder correr el sistema en local
+
+
+
+
+## Environment Variables
+
+Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno a su archivo .env
+
+
+`NEXT_PUBLIC_API_KEY`
+
+`NEXT_PUBLIC_AUTH_DOMAIN`
+
+`NEXT_PUBLIC_PROJECT_ID`
+
+`NEXT_PUBLIC_STORAGE_BUCKET`
+
+`NEXT_PUBLIC_MESSAGING_SENDERID`
+
+`NEXT_PUBLIC_APP_ID`
+
+`NEXT_PUBLIC_MEASUREMENT_ID`
+
+
+## Ejecutar localmente
+
+Clonar el proyecto
 
 ```bash
-npm run dev
-# or
-yarn dev
+  git clone https://github.com/as-techseven/test-konecta.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ir al directorio del proyecto
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd test-konecta
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Instalar dependencias
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  yarn install
+```
 
-## Learn More
+Inicie el servidor
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  yarn dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Demo
 
-## Deploy on Vercel
+Ingrese en este link para ir a la pagina del demo
+https://test-konecta.vercel.app/
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Reglas para firebase-storage
+
+```javascript
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+    	allow read: if request.method == 'get';
+    
+      allow write: if request.method == 'create'
+      && request.resource.size < 5 * 1024 * 1024
+      && request.resource.contentType.matches(".*\\.sheet");
+    }
+  }
+}
+```
+
